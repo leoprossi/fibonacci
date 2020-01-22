@@ -3,12 +3,29 @@ version: '3'
 services:
     postgres:
         image: 'postgres:latest'
+
     redis:
         image: 'redis:latest'
-    server:
+
+    nginx:
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./nginx
+        depends_on: 
+            - api
+            - client
+        restart: always
+        ports: 
+            - '3000:80'
+
+    api:
         build:
             dockerfile: Dockerfile.dev
             context: ./server
+        depends_on: 
+            - postgres
+            - redis
+            - worker
         volumes:
             - /app/node_modules
             - ./server:/app
@@ -20,6 +37,7 @@ services:
             - PGUSER
             - PGPASSWORD
             - PGDATABASE
+
     client:
         build:
             dockerfile: Dockerfile.dev
@@ -27,10 +45,13 @@ services:
         volumes: 
             - /app/node_modules
             - ./client:/app
+
     worker:
         build: 
             dockerfile: Dockerfile.dev
             context: ./worker
+        depends_on: 
+            - redis
         volumes: 
             - /app/node_modules
             - ./worker:/app
