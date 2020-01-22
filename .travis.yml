@@ -1,0 +1,20 @@
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t lrossi/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run -e CI=true lrossi/react-test npm test
+
+after_success:
+    - docker build -t lrossi/client ./client
+    - docker build -t lrossi/server ./server
+    - docker build -t lrossi/worker ./worker
+    - docker build -t lrossi/nginx ./nginx
+    - echo "$DOCKER_SECRET" | docker login -u "$DOCKER_ID" --password-stdin
+    - docker push lrossi/client
+    - docker push lrossi/server
+    - docker push lrossi/worker
+    - docker push lrossi/nginx
