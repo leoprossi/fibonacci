@@ -1,0 +1,34 @@
+{
+    "AWSEBDockerrrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "lrossi/client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "lrossi/server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "lrossi/worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "lrossi/nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [ "server", "client" ]
+        }
+    ]
+}
