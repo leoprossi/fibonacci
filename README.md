@@ -9,4 +9,4 @@ There's a volume mapped for the `client` app's source code ensuring that the hot
 
 
 ## Production
-Still working on this part.
+The app is meant to run on Amazon EBS, but since I don't wanna be charged or anything I just commented out the deployment part of the .travis file.

@@ -20,14 +20,14 @@ after_success:
     - docker push lrossi/nginx
     - docker logout
 
-deploy:
-    provider: elasticbeanstalk
-    region: us-east-2
-    app: fibonacci
-    env: Fibonacci-env
-    bucket_name: elasticbeanstalk-us-east-2-550970079876
-    bucket_path: fibonacci
-    on: 
-        branch: master
-    access_key_id: $AWS_KEY
-    secret_access_key: $AWS_SECRET
+# deploy:
+#     provider: elasticbeanstalk
+#     region: us-east-2
+#     app: fibonacci
+#     env: Fibonacci-env
+#     bucket_name: elasticbeanstalk-us-east-2-550970079876
+#     bucket_path: fibonacci
+#     on: 
+#         branch: master
+#     access_key_id: $AWS_KEY
+#     secret_access_key: $AWS_SECRET
