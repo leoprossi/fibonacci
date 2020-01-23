@@ -20,7 +20,7 @@ after_success:
     - docker push lrossi/nginx
     - docker logout
 
-delpoy:
+deploy:
     provider: elasticbeanstalk
     region: us-east-2
     app: fibonacci
